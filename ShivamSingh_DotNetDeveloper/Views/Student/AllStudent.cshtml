@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ShivamSingh_DotNetDeveloper.Models.Student>
+
+@{
+    ViewBag.Title = "AllStudent";
+}
+
+<h2>AllStudent</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddStudent")
+</p>
+
+<table class="table">
+    @using (Html.BeginForm("AllStudent", "Student", FormMethod.Get))
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.ActionLink("STD", "AllStudent", new { SortOrder = ViewBag.STD, SelectedSTD = ViewBag.SelectedSTD, SelectedSubject = ViewBag.SelectedSubject },new { })
+
+            </th>
+            <th>
+                @Html.ActionLink("Subject", "AllStudent", new { SortOrder = ViewBag.Subject, SelectedSTD = ViewBag.SelectedSTD, SelectedSubject = ViewBag.SelectedSubject })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marks)
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@Html.DropDownList("SelectedSTD", new SelectList(ViewBag.UniqueSTD, "Value", "Text", "ViewBag.SelectedSTD"), "All", new { onchange = "form.submit();" })</th>
+            <th>@Html.DropDownList("SelectedSubject", new SelectList(ViewBag.UniqueSubject, "Value", "Text", "ViewBag.SelectedSubject"), "All", new { onchange = "form.submit();" })</th>
+        </tr>
+    }
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marks)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
